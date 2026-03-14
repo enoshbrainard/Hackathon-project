@@ -21,7 +21,7 @@ export default function Navbar() {
               </div>
               <input
                 type="text"
-                placeholder="Search for burgers, drinks, combo..."
+                placeholder="Search products by name or category..."
                 className="w-full bg-slate-100 rounded-full py-2 pl-10 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white transition-all border border-transparent focus:border-orange-200"
               />
             </div>
