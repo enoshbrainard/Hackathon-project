@@ -6,4 +6,5 @@ dist
 .vscode
 frontend/dist
 frontend/node_modules
+frontend/.next
 backend/node_modules
