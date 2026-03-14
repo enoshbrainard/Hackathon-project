@@ -3,9 +3,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 export const signup = async (req, res) => {
-
     try {
-
         const { name, email, password, adminCode } = req.body;
 
         const existingUser = await User.findOne({ email });
@@ -21,7 +19,7 @@ export const signup = async (req, res) => {
 
         let role = "user";
 
-        if(adminCode && adminCode === process.env.ADMIN_SECRET){
+        if (adminCode && adminCode === process.env.ADMIN_SECRET) {
             role = "admin";
         }
 
@@ -34,17 +32,28 @@ export const signup = async (req, res) => {
 
         await newUser.save();
 
+        // ✅ CREATE TOKEN
+        const token = jwt.sign(
+            { id: newUser._id, role: newUser.role },
+            process.env.JWT_SECRET,
+            { expiresIn: "1d" }
+        );
+
         res.status(201).json({
-            message:"Signup successful",
-            role:newUser.role
+            message: "Signup successful",
+            token,
+            user: {
+                id: newUser._id,
+                name: newUser.name,
+                email: newUser.email,
+                role: newUser.role
+            }
         });
 
     } catch (error) {
-
         res.status(500).json({
-            message:error.message
+            message: error.message
         });
-
     }
 };
 

@@ -1,4 +1,4 @@
-// File: C:\Users\Neo\.gemini\antigravity\scratch\Hackathon-project\frontend\src\app\admin\dashboard\page.jsx
+// File: D:\hack win\Hackathon-project\frontend\src\app\admin\dashboard\page.jsx
 import * as entry from '../../../../../src/app/admin/dashboard/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

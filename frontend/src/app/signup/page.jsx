@@ -19,12 +19,15 @@ export default function SignupPage() {
 
     try {
       const res = await axios.post('http://localhost:5000/api/auth/signup', {
-        name: formData.name,
-        email: formData.email,
-        password: formData.password
-      });
-      localStorage.setItem('token', res.data.token);
-      router.push('/');
+      name: formData.name,
+      email: formData.email,
+      password: formData.password
+    });
+
+    localStorage.setItem('token', res.data.token);
+    localStorage.setItem('role', res.data.user.role);
+
+    router.push('/');
     } catch (err) {
       setError(err.response?.data?.message || 'Error signing up');
     }

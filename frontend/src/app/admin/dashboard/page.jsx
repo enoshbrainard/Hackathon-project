@@ -35,7 +35,7 @@ export default function AdminDashboard() {
         axios.get('http://localhost:5000/api/products')
       ]);
       setCategories(catRes.data);
-      setProducts(prodRes.data.products);
+      setProducts(prodRes.data.products || []);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
