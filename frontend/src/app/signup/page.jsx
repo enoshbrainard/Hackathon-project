@@ -1,6 +1,35 @@
+"use client";
 import Link from 'next/link';
+import { useState } from 'react';
+import axios from 'axios';
+import { useRouter } from 'next/navigation';
 
 export default function SignupPage() {
+  const router = useRouter();
+  const [formData, setFormData] = useState({ name: '', email: '', password: '', confirmPassword: '' });
+  const [error, setError] = useState('');
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
+    
+    if(formData.password !== formData.confirmPassword) {
+      return setError('Passwords do not match');
+    }
+
+    try {
+      const res = await axios.post('http://localhost:5000/api/auth/signup', {
+        name: formData.name,
+        email: formData.email,
+        password: formData.password
+      });
+      localStorage.setItem('token', res.data.token);
+      router.push('/');
+    } catch (err) {
+      setError(err.response?.data?.message || 'Error signing up');
+    }
+  };
+
   return (
     <div className="min-h-[80vh] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8 bg-white p-10 rounded-3xl shadow-xl border border-slate-100">
@@ -12,7 +41,8 @@ export default function SignupPage() {
             Join QuickBite today and start enjoying the best food.
           </p>
         </div>
-        <form className="mt-8 space-y-6" action="#" method="POST">
+        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+          {error && <div className="text-red-500 text-sm text-center font-bold bg-red-50 p-2 rounded">{error}</div>}
           <div className="space-y-4 rounded-md shadow-sm">
             <div>
               <label htmlFor="full-name" className="sr-only">Full Name</label>
@@ -22,6 +52,8 @@ export default function SignupPage() {
                 type="text"
                 autoComplete="name"
                 required
+                value={formData.name}
+                onChange={e => setFormData({...formData, name: e.target.value})}
                 className="appearance-none rounded-xl relative block w-full px-4 py-3 border border-slate-300 placeholder-slate-400 text-slate-900 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 focus:z-10 sm:text-sm bg-slate-50 transition-all"
                 placeholder="Full Name"
               />
@@ -34,6 +66,8 @@ export default function SignupPage() {
                 type="email"
                 autoComplete="email"
                 required
+                value={formData.email}
+                onChange={e => setFormData({...formData, email: e.target.value})}
                 className="appearance-none rounded-xl relative block w-full px-4 py-3 border border-slate-300 placeholder-slate-400 text-slate-900 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 focus:z-10 sm:text-sm bg-slate-50 transition-all"
                 placeholder="Email address"
               />
@@ -46,6 +80,8 @@ export default function SignupPage() {
                 type="password"
                 autoComplete="new-password"
                 required
+                value={formData.password}
+                onChange={e => setFormData({...formData, password: e.target.value})}
                 className="appearance-none rounded-xl relative block w-full px-4 py-3 border border-slate-300 placeholder-slate-400 text-slate-900 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 focus:z-10 sm:text-sm bg-slate-50 transition-all"
                 placeholder="Password"
               />
@@ -58,6 +94,8 @@ export default function SignupPage() {
                 type="password"
                 autoComplete="new-password"
                 required
+                value={formData.confirmPassword}
+                onChange={e => setFormData({...formData, confirmPassword: e.target.value})}
                 className="appearance-none rounded-xl relative block w-full px-4 py-3 border border-slate-300 placeholder-slate-400 text-slate-900 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 focus:z-10 sm:text-sm bg-slate-50 transition-all"
                 placeholder="Confirm Password"
               />

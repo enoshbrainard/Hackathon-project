@@ -37,3 +37,15 @@ export const getCategories = async (req, res) => {
 
     }
 };
+
+import Product from "../models/Product.js";
+
+export const getCategoryProducts = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const products = await Product.find({ category: id });
+        res.json(products);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
