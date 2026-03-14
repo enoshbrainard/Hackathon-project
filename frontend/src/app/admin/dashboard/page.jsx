@@ -31,8 +31,8 @@ export default function AdminDashboard() {
   const fetchData = async () => {
     try {
       const [catRes, prodRes] = await Promise.all([
-        axios.get('http://localhost:5000/api/categories'),
-        axios.get('http://localhost:5000/api/products')
+        axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/categories`),
+        axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/products`)
       ]);
       setCategories(catRes.data);
       setProducts(prodRes.data.products || []);
@@ -44,7 +44,7 @@ export default function AdminDashboard() {
   const handleCreateProduct = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/api/products', productForm, {
+      await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/products`, productForm, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setMessage('Product created successfully!');
@@ -58,7 +58,7 @@ export default function AdminDashboard() {
   const handleCreateCategory = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/api/categories', {
+      await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/categories`, {
         name: categoryForm.name,
         logo: categoryForm.icon,
         description: categoryForm.description
@@ -76,7 +76,7 @@ export default function AdminDashboard() {
   const handleUpdateStock = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`http://localhost:5000/api/products/${stockForm.productId}/stock`, {
+      await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/api/products/${stockForm.productId}/stock`, {
         stock: parseInt(stockForm.stock)
       }, {
         headers: { Authorization: `Bearer ${token}` }

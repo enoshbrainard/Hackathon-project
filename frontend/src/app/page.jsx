@@ -31,7 +31,7 @@ export default function Home() {
     const searchProducts = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:5000/api/products/search?query=${globalSearch}`
+          `${process.env.NEXT_PUBLIC_API_URL}/api/products/search?query=${globalSearch}`
         );
 
         setProducts(res.data);
@@ -53,8 +53,8 @@ export default function Home() {
       setLoading(true);
 
       const [catRes, prodRes] = await Promise.all([
-        axios.get('http://localhost:5000/api/categories'),
-        axios.get('http://localhost:5000/api/products')
+        axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/categories`),
+        axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/products`)
       ]);
 
       setCategories(catRes.data);
@@ -90,7 +90,7 @@ export default function Home() {
       try {
 
         const res = await axios.get(
-          `http://localhost:5000/api/products/search?query=${query}`
+          `${process.env.NEXT_PUBLIC_API_URL}/api/products/search?query=${query}`
         );
 
         setProducts(res.data);

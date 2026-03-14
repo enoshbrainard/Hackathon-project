@@ -18,7 +18,7 @@ export default function SignupPage() {
     }
 
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/signup', {
+      const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/signup`, {
       name: formData.name,
       email: formData.email,
       password: formData.password
