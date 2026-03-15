@@ -1,6 +1,11 @@
 # Retail Inventory Portal
   livelink: https://hackathonprojectteamfinalist.vercel.app/
 
+
+for testing purpose
+Admin credentials
+email: admin@quickbite.com
+password: admin123
 ## Problem Statement
 
 Build a full-stack **Retail Inventory Portal** that allows users to browse products by category (similar to fast-food ordering interfaces like burgers, drinks, sides, etc.) and allows administrators to manage inventory, products, and categories.
