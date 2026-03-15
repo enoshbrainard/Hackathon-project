@@ -1,5 +1,5 @@
 # Retail Inventory Portal
-  livelink:https://hackathonprojectteamfinalist.vercel.app/
+  livelink: https://hackathonprojectteamfinalist.vercel.app/
 
 ## Problem Statement
 
