@@ -3,8 +3,11 @@
 
 
 for testing purpose
+
 Admin credentials
+
 email: admin@quickbite.com
+
 password: admin123
 ## Problem Statement
 
